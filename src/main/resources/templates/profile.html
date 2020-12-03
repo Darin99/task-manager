@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <nav class="navbar navbar-expand-lg ">
+                <th:block th:include="~{fragments/nav}"></th:block>
+            </nav>
+        </header>
+        <main>
+            <div th:object="${user}" class="bg-image-quote-create">
+                <span style="visibility: hidden">....</span>
+                <h1 class="text-center font-weight-bold text-white">Profile</h1>
+                <hr class="hr-2 w-25 bg-dark">
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <h1 class="text-white" th:utext="*{getUsername()}"></h1>
+                    </div>
+                </div>
+                <hr class="hr-2 w-25 bg-dark">
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <h4 class="text-white" th:utext="*{getEmail()}"></h4>
+                    </div>
+                </div>
+                <hr class="hr-2 w-25 bg-dark">
+                <div class="button-holder d-flex justify-content-center">
+                    <a th:href="@{/users/edit/{username}
+                           (username = ${#httpServletRequest.userPrincipal.getName()})}" class="btn btn-dark">Edit Profile</a>
+                </div>
+                <hr class="hr-2 w-25 bg-dark">
+            </div>
+        </main>
+        <footer class="footer">
+            <th:block th:include="~{fragments/footer}"></th:block>
+        </footer>
+    </div>
+</body>
+</html>

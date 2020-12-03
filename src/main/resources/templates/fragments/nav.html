@@ -1,0 +1,41 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+<span class="col-md-1">
+        <img src="/img/projectLogo.png" alt="Logo" width="50" height="50">
+      </span>
+
+    <th:block sec:authorize="isAnonymous()">
+        <a class="navbar-brand active col-md-1 title" th:href="@{/}">Gira</a>
+        <div class="collapse navbar-collapse  d-flex justify-content-end">
+            <ul class="navbar-nav row">
+                <li class="nav-item col-md-5">
+                    <a class="button" th:href="@{/users/login}">Login</a>
+                </li>
+                <li class="nav-item col-md-5">
+                    <a class="button" th:href="@{/users/register}">Register</a>
+                </li>
+            </ul>
+        </div>
+    </th:block>
+
+    <th:block sec:authorize="isAuthenticated()">
+        <a class="navbar-brand active col-md-1 title" th:href="@{/home}">Gira</a>
+        <div class="collapse navbar-collapse  d-flex justify-content-end">
+            <ul class="navbar-nav row">
+                <li class="nav-item col-md-4">
+                    <a class="button text-nowrap"
+                       th:href="@{/users/profile/{username}
+                           (username = ${#httpServletRequest.userPrincipal.getName()})}">Profile</a>
+                </li>
+                <li class="nav-item col-md-4">
+                    <a class="button text-nowrap" th:href="@{/tasks/add}">Add Task</a>
+                </li>
+                <li class="nav-item col-md-4">
+                    <form action="/logout?login" method="post">
+                        <input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
+                        <a class="button text-nowrap" th:href="@{/logout}">Logout</a>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </th:block>
+</th:block>

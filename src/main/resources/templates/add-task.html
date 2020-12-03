@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="page-container">
+    <header>
+        <nav class="navbar navbar-expand-lg ">
+            <th:block th:include="~{fragments/nav}"></th:block>
+        </nav>
+    </header>
+
+    <main class="content-wrap">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Task</span></h1>
+        <hr class="hr-3 w-25 bg-white"/>
+        <form th:object="${addTaskBindingModel}" class="mx-auto w-25 bg-blur" method="POST" th:action="@{/tasks/add}">
+            <div class="form-group">
+                <div class="label-holder textCol d-flex justify-content-center">
+                    <label for="name" class="h4 mb-2">Name</label>
+                </div>
+                <input th:field="*{name}" th:errorclass="bg-danger" type="text" class="form-control" id="name"
+                       name="name"/>
+                <small th:each="e : ${#fields.errors('name')}" th:text="${e}" class="text-danger">Name error
+                    message</small>
+            </div>
+            <div class="form-group">
+                <div class="label-holder textCol d-flex justify-content-center">
+                    <label for="description" class="h4 mb-2">Description</label>
+                </div>
+                <input th:field="*{description}" th:errorclass="bg-danger" type="text" class="form-control"
+                       id="description" name="description"/>
+
+                <small th:each="e : ${#fields.errors('description')}" th:text="${e}" class="text-danger">Description
+                    error message</small>
+            </div>
+            <div class="form-group">
+                <div class="label-holder  textCol d-flex justify-content-center">
+                    <label for="classification" class="h4 mb-2">Classification</label>
+                </div>
+                <select type="text" class="form-control" id="classification" name="classification">
+                    <option value="">Select Classification</option>
+                    <option th:each="o : ${T(com.example.demo.model.entity.ClassificationName).values()}"
+                            th:text="${o}" th:value="${o.name()}"></option>
+                </select>
+                <small th:each="e : ${#fields.errors('classification')}" th:text="${e}" class="text-danger">Classification
+                    error message</small>
+            </div>
+
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="button btn-warning  mb-3" value="Register">Add Task</button>
+            </div>
+        </form>
+    </main>
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

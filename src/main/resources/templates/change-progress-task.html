@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="page-container">
+    <header>
+        <nav class="navbar navbar-expand-lg ">
+            <th:block th:include="~{fragments/nav}"></th:block>
+        </nav>
+    </header>
+    <main>
+        <form class="mx-auto w-25 bg-blur" method="POST" th:action="@{/tasks/change-progress}">
+            <div class="form-group">
+                <div class="label-holder  textCol d-flex justify-content-center">
+                    <label for="Progress" class="h4 mb-2">Progress</label>
+                </div>
+                <select type="text" class="form-control" id="Progress" name="Progress">
+                    <option value="">Progress</option>
+                    <option th:each="o : ${T(com.example.demo.model.entity.Progress).values()}"
+                            th:text="${o}" th:value="${o.name()}"></option>
+                </select>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="button btn-warning  mb-3">Change Progress</button>
+            </div>
+        </form>
+    </main>
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

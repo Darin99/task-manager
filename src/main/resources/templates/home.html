@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="page-container">
+    <header>
+        <nav class="navbar navbar-expand-lg ">
+            <th:block th:include="~{fragments/nav}"></th:block>
+        </nav>
+    </header>
+    <main class="content-wrap">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Tasks</span></h1>
+        <hr class="hr-3 w-75 bg-white"/>
+        <div th:if="${tasks.isEmpty()}">
+            <h1 class="text-center" style="color:white">You dont have any tasks! Please click
+                <a th:href="@{/tasks/add}">here</a>
+                or the add task button
+                to add task.</h1>
+        </div>
+        <div th:unless="${tasks.isEmpty()}">
+            <form th:each="t : ${tasks}" class="mx-auto w-75">
+
+                <div class="card-group task-card">
+                    <div class="card">
+
+                        <div class="card-title">
+                            <h5 class="card-title">Name</h5>
+                        </div>
+                        <div class="card-footer">
+                            <small th:text="${t.name}">Repair Laptop</small>
+                        </div>
+                    </div>
+                    <div class="card">
+
+                        <div class="card-title">
+                            <h5 class="card-title">Assigned to</h5>
+                        </div>
+                        <div class="card-footer">
+                            <small th:text="${t.username}">George</small>
+                        </div>
+                    </div>
+                    <div class="card">
+
+                        <div class="card-title">
+                            <h5 class="card-title">Classification</h5>
+                        </div>
+                        <div class="card-footer">
+                            <small th:text="${t.getClassificationName().name()}"
+                                   class="classifications"
+                                   th:class="${t.getClassificationName().name()}">SUPPORT</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <h5 class="card-title">Progress</h5>
+                        </div>
+                        <div th:if="${t.getProgress() == null}" class="card-footer">
+                            <small>OPEN</small>
+                        </div>
+                        <div th:unless="${t.getProgress() == null}" class="card-footer">
+                            <small th:text="${t.progress}"></small>
+                        </div>
+                    </div>
+                    <a th:href="@{tasks/change-progress/{id}(id = ${t.getId()})}" class="button prBtn">Progress</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>
